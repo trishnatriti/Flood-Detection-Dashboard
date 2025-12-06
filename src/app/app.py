@@ -21,7 +21,6 @@ class App:
         base_dir = os.path.dirname(os.path.dirname(__file__))
         shp = "data//India_district_level_shapefile.gpkg"
         shape_path = os.path.join(base_dir,shp)
-        print(shape_path)
         gdf = gpd.read_file(shape_path)
         states = ['Select State']+list(gdf["State"].unique())
         today = datetime.datetime.today().date()
@@ -54,7 +53,7 @@ class App:
                 if st.sidebar.button("RUN"):
                     
                     flood = Flood()
-                    flood_map, aoi = flood.get_flood(flood_json)
+                    flood_map, aoi = flood.get_flood(flood_json, gdf)
                     Map = gmap.Map()
                     Map.addLayer(flood_map, {"palette": ["blue"]}, 'Flood')
                     Map.addLayer(aoi, {}, 'Area of Interest')
