@@ -13,7 +13,7 @@ class Flood:
 
     initialize_gee()
     
-    def get_flood(self, input_json):
+    def get_flood(self, input_json, gdf):
         
         '''
         input: 
@@ -42,9 +42,6 @@ class Flood:
             return am
         
         # filtering gdf for aoi
-        base_dir = os.path.dirname(os.path.dirname(__file__))
-        shp_dir = r'data\India_district_level_shapefile.gpkg'
-        gdf = gpd.read_file(os.path.join(base_dir,shp_dir))
         gdf = gdf[(gdf["State"] == input_json["state"]) & (gdf["District"] == input_json["district"])]
 
         aoi_fc = ee.FeatureCollection(json.loads(gdf.to_json()))
